@@ -1,4 +1,4 @@
-class Editor is
+class Editor is 
     private field text, curX, curY, selectionWidth
 
     method setText(text) is
