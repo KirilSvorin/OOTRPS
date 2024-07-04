@@ -1,0 +1,45 @@
+interface DataSource is
+    method writeData(data)
+    method readData():data
+
+class FileDataSource implements DataSource is
+    constructor FileDataSource(filename) { ... }
+
+    method writeData(data) is
+
+    method readData():data is
+
+class DataSourceDecorator implements DataSource is
+    protected field wrappee: DataSource
+
+    constructor DataSourceDecorator(source: DataSource) is
+        wrappee = source
+
+    method writeData(data) is
+        wrappee.writeData(data)
+
+    method readData():data is
+        return wrappee.readData()
+
+class EncryptionDecorator extends DataSourceDecorator is
+    method writeData(data) is
+
+    method readData():data is
+
+class CompressionDecorator extends DataSourceDecorator is
+    method writeData(data) is
+
+    method readData():data is
+
+
+class Application is
+    method dumbUsageExample() is
+        source = new FileDataSource("somefile.dat")
+        source.writeData(salaryRecords)
+
+        source = new CompressionDecorator(source)
+        source.writeData(salaryRecords)
+
+        source = new EncryptionDecorator(source)
+
+        source.writeData(salaryRecords)
